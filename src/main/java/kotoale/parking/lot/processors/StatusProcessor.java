@@ -8,24 +8,15 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 @Component
-public class StatusProcessor implements Processor<Void> {
-    private static final String COMMAND = "status";
-    private static final String COMMAND_ARG_REGEXP = "";
+public class StatusProcessor extends AbstractProcessor<Void> {
+    private static final String COMMAND_NAME = "status";
+    private static final String ARGS_REGEXP = "";
 
     private final ParkingLot parkingLot;
 
     public StatusProcessor(ParkingLot parkingLot) {
+        super(COMMAND_NAME, ARGS_REGEXP);
         this.parkingLot = parkingLot;
-    }
-
-    @Override
-    public String getCommandName() {
-        return COMMAND;
-    }
-
-    @Override
-    public String getArgsRegexp() {
-        return COMMAND_ARG_REGEXP;
     }
 
     @Override

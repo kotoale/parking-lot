@@ -6,24 +6,15 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Matcher;
 
 @Component
-public class ParkProcessor implements Processor<ParkProcessor.Command> {
-    private static final String COMMAND = "park";
-    private static final String COMMAND_ARG_REGEXP = "(?<parkPlate>[a-zA-Z\\-\\d]+)";
+public class ParkProcessor extends AbstractProcessor<ParkProcessor.Command> {
+    private static final String COMMAND_NAME = "park";
+    private static final String ARGS_REGEXP = "(?<parkPlate>[a-zA-Z\\-\\d]+)";
 
     private final ParkingLot parkingLot;
 
     public ParkProcessor(ParkingLot parkingLot) {
+        super(COMMAND_NAME, ARGS_REGEXP);
         this.parkingLot = parkingLot;
-    }
-
-    @Override
-    public String getCommandName() {
-        return COMMAND;
-    }
-
-    @Override
-    public String getArgsRegexp() {
-        return COMMAND_ARG_REGEXP;
     }
 
     @Override

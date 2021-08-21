@@ -7,24 +7,15 @@ import org.springframework.stereotype.Component;
 import java.util.regex.Matcher;
 
 @Component
-public class LeaveProcessor implements Processor<LeaveProcessor.Command> {
-    private static final String COMMAND = "leave";
-    private static final String COMMAND_ARG_REGEXP = "(?<leavePlate>[a-zA-Z\\-\\d]+)(?:\\s+)(?<leaveHours>[1-9]\\d*)";
+public class LeaveProcessor extends AbstractProcessor<LeaveProcessor.Command> {
+    private static final String COMMAND_NAME = "leave";
+    private static final String ARGS_REGEXP = "(?<leavePlate>[a-zA-Z\\-\\d]+)(?:\\s+)(?<leaveHours>[1-9]\\d*)";
 
     private final ParkingLot parkingLot;
 
     public LeaveProcessor(ParkingLot parkingLot) {
+        super(COMMAND_NAME, ARGS_REGEXP);
         this.parkingLot = parkingLot;
-    }
-
-    @Override
-    public String getCommandName() {
-        return COMMAND;
-    }
-
-    @Override
-    public String getArgsRegexp() {
-        return COMMAND_ARG_REGEXP;
     }
 
     @Override
