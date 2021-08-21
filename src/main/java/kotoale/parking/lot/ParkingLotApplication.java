@@ -13,7 +13,7 @@ import java.util.List;
 @SpringBootApplication
 public class ParkingLotApplication {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(ParkingLotApplication.class, args);
         CommandHandler handler = context.getBean(CommandHandler.class);
 
@@ -22,14 +22,19 @@ public class ParkingLotApplication {
             return;
         }
 
-        handler.handle(Files.lines(Paths.get(args[0])));
+        try {
+            handler.handle(Files.lines(Paths.get(args[0])));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            printUsage(handler.getProcessors());
+        }
     }
 
     @SuppressWarnings("rawtypes")
     private static void printUsage(List<Processor> processors) {
         System.out.printf("Usage: %s <file>%n", ParkingLotApplication.class.getSimpleName());
         System.out.println("Prints Parking lot output to STDOUT");
-        System.out.printf("  %-10s The file with commands to process:%n%n", "<file>");
+        System.out.printf("  %-10s The text file with commands to process:%n%n", "<file>");
         System.out.printf("  %-10s RegExp%n", "Command");
         processors.stream()
                 .map(processor -> String.format("  %-10s %s",
