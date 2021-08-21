@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 public interface Processor<C> {
     String getCommandName();
 
-    String getArgsRegexp();
+    String getCommandRegexp();
 
     C createCommand(Matcher matcher);
 

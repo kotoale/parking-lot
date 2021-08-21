@@ -25,13 +25,8 @@ public class CommandHandler {
     public CommandHandler(PrintWriter writer, List<Processor> processors) {
         this.writer = writer;
         commandNameToProcessor = processors.stream().collect(Collectors.toMap(Processor::getCommandName, Function.identity()));
-        commandPattern = Pattern.compile(processors.stream().map(this::createProcessorRegexp)
-                .collect(Collectors.joining("|", "^", "(?:\\s*)$")));
-
-    }
-
-    private String createProcessorRegexp(Processor processor) {
-        return String.format("((?:\\s*)(%s)(?:\\s*)%s)", processor.getCommandName(), processor.getArgsRegexp());
+        commandPattern = Pattern.compile(processors.stream().map(Processor::getCommandRegexp)
+                .collect(Collectors.joining("|", "^(?:\\s*)(", ")(?:\\s*)$")));
     }
 
     @SuppressWarnings("unchecked")

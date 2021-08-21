@@ -18,11 +18,11 @@ public class ParkingLotApplication {
                         "   park KA-01-HH-1234\n" +
                         "park KA-01-HH-9999\n" +
                         "park KA-01-BB-0001\n" +
-                        "park KA-01-HH-7777\n" +
+                        " park KA-01-HH-7777\n" +
                         "park KA-01-HH-2701\n" +
                         "park KA-01-HH-3141\n" +
                         "leave KA-01-HH-3141 4\n" +
-                        "status\n" +
+                        "status \n" +
                         "park KA-01-P-333\n" +
                         "park DL-12-AA-9999\n" +
                         "leave KA-01-HH-1234 4\n" +
