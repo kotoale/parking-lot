@@ -13,12 +13,12 @@ public abstract class AbstractProcessor<C> implements Processor<C> {
     }
 
     @Override
-    public String getCommandName() {
+    final public String getCommandName() {
         return commandName;
     }
 
     @Override
-    public String getArgsRegexp() {
+    final public String getArgsRegexp() {
         return argsRegexp;
     }
 }

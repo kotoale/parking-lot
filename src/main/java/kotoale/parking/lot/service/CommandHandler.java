@@ -1,7 +1,7 @@
-package kotoale.parking.lot;
+package kotoale.parking.lot.service;
 
 import kotoale.parking.lot.processors.Processor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("rawtypes")
-@Component
+@Service
 public class CommandHandler {
 
     private final PrintWriter writer;

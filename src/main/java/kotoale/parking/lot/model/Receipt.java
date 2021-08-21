@@ -1,4 +1,4 @@
-package kotoale.parking.lot;
+package kotoale.parking.lot.model;
 
 public class Receipt {
     private final int slotNo;

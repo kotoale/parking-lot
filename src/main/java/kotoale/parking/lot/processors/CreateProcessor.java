@@ -1,6 +1,6 @@
 package kotoale.parking.lot.processors;
 
-import kotoale.parking.lot.ParkingLot;
+import kotoale.parking.lot.service.ParkingLot;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;

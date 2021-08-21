@@ -1,7 +1,8 @@
-package kotoale.parking.lot;
+package kotoale.parking.lot.service;
 
+import kotoale.parking.lot.model.Receipt;
 import kotoale.parking.lot.calculator.ChargeCalculator;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Component
+@Service
 public class ParkingLot {
 
     private boolean initialized;

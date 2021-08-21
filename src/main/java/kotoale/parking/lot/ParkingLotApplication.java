@@ -1,5 +1,6 @@
 package kotoale.parking.lot;
 
+import kotoale.parking.lot.service.CommandHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 @SpringBootApplication
 public class ParkingLotApplication {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(ParkingLotApplication.class, args);
         CommandHandler handler = context.getBean(CommandHandler.class);
         handler.handle(Arrays.stream((
