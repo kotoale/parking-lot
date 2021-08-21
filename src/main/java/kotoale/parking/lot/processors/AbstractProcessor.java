@@ -23,6 +23,6 @@ public abstract class AbstractProcessor<C> implements Processor<C> {
     }
 
     private String createProcessorArgsRegexp() {
-        return argsRegexp.isEmpty() ? "" : String.format("(?:\\s*)%s", argsRegexp);
+        return argsRegexp.isEmpty() ? "" : String.format("(?:\\s+)%s", argsRegexp);
     }
 }

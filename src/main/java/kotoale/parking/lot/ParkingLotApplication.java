@@ -1,36 +1,40 @@
 package kotoale.parking.lot;
 
+import kotoale.parking.lot.processors.Processor;
 import kotoale.parking.lot.service.CommandHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 @SpringBootApplication
 public class ParkingLotApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ConfigurableApplicationContext context = SpringApplication.run(ParkingLotApplication.class, args);
         CommandHandler handler = context.getBean(CommandHandler.class);
-        handler.handle(Arrays.stream((
-                "create 6\n" +
-                        "   park KA-01-HH-1234\n" +
-                        "park KA-01-HH-9999\n" +
-                        "park KA-01-BB-0001\n" +
-                        " park KA-01-HH-7777\n" +
-                        "park KA-01-HH-2701\n" +
-                        "park KA-01-HH-3141\n" +
-                        "leave KA-01-HH-3141 4\n" +
-                        "status \n" +
-                        "park KA-01-P-333\n" +
-                        "park DL-12-AA-9999\n" +
-                        "leave KA-01-HH-1234 4\n" +
-                        "leave KA-01-BB-0001 6\n" +
-                        "leave DL-12-AA-9999 2\n" +
-                        "park KA-09-HH-0987\n" +
-                        "park CA-09-IO-1111\n" +
-                        "park KA-09-HH-0123\n" +
-                        "status").split("\n")));
+
+        if (args.length == 0) {
+            printUsage(handler.getProcessors());
+            return;
+        }
+
+        handler.handle(Files.lines(Paths.get(args[0])));
+    }
+
+    @SuppressWarnings("rawtypes")
+    private static void printUsage(List<Processor> processors) {
+        System.out.printf("Usage: %s <file>%n", ParkingLotApplication.class.getSimpleName());
+        System.out.println("Prints Parking lot output to STDOUT");
+        System.out.printf("  %-10s The file with commands to process:%n%n", "<file>");
+        System.out.printf("  %-10s RegExp%n", "Command");
+        processors.stream()
+                .map(processor -> String.format("  %-10s %s",
+                        processor.getCommandName(), processor.getCommandRegexp()))
+                .forEach(System.out::println);
+
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -24,14 +25,21 @@ public class CommandHandler {
 
     public CommandHandler(PrintWriter writer, List<Processor> processors) {
         this.writer = writer;
+        //TODO check getCommandName for null and inclusion space symbols
+        //TODO check getCommandRegexp for null
         commandNameToProcessor = processors.stream().collect(Collectors.toMap(Processor::getCommandName, Function.identity()));
         commandPattern = Pattern.compile(processors.stream().map(Processor::getCommandRegexp)
                 .collect(Collectors.joining("|", "^(?:\\s*)(", ")(?:\\s*)$")));
     }
 
+    public List<Processor> getProcessors() {
+        return commandNameToProcessor.values().stream()
+                .sorted(Comparator.comparing(Processor::getCommandName))
+                .collect(Collectors.toUnmodifiableList());
+    }
+
     @SuppressWarnings("unchecked")
     public void handle(Stream<String> commands) {
-
         commands.forEach(commandLine -> {
             Matcher matcher = commandPattern.matcher(commandLine);
             if (!matcher.matches()) {
