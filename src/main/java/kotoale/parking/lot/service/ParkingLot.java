@@ -15,6 +15,9 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Parking lot.
+ */
 @Service
 public class ParkingLot {
 
@@ -26,10 +29,22 @@ public class ParkingLot {
 
     private final ChargeCalculator chargeCalculator;
 
+    /**
+     * Creates new {@link ParkingLot} object with {@code chargeCalculator}
+     *
+     * @param chargeCalculator charge calculator to be used by the parking lot
+     */
     public ParkingLot(ChargeCalculator chargeCalculator) {
         this.chargeCalculator = Objects.requireNonNull(chargeCalculator, "chargeCalculator is null");
     }
 
+    /**
+     * Initialize parking lot with given {@code size}
+     *
+     * @param size parking lot size
+     * @throws IllegalArgumentException when {@code size} is not positive
+     * @throws ParkingLotException      when parking lot already initialized
+     */
     public void init(int size) {
         if (size <= 0) {
             throw new IllegalArgumentException(String.format("size is not positive: %d", size));
@@ -42,6 +57,16 @@ public class ParkingLot {
         initialized = true;
     }
 
+    /**
+     * Parks a car with {@code plate}
+     *
+     * @param plate registration number of the car to be parked
+     * @return a parking slot occupied by the parked car
+     * @throws ParkingLotException  when parking lot is not initialized
+     * @throws ParkingLotException  when a vehicle with the {@code plate} already parked
+     * @throws ParkingLotException  when parking lot is full
+     * @throws NullPointerException when {@code plate} is null
+     */
     public int park(String plate) {
         checkInitialize();
         Objects.requireNonNull(plate, "plate is null");
@@ -59,6 +84,17 @@ public class ParkingLot {
         return slotNo;
     }
 
+    /**
+     * Removes car with {@code plate} from the parking lot and calculate total charge
+     *
+     * @param plate registration number of the leaving car
+     * @param hours parking time (rounded to hours) for the car with {@code plate}
+     * @return {@link Receipt} for the leaving car
+     * @throws IllegalArgumentException when {@code hours} is not positive
+     * @throws ParkingLotException      when parking lot is not initialized
+     * @throws ParkingLotException      when car with the {@code plate} not parked
+     * @throws NullPointerException     when {@code plate} is null
+     */
     public Receipt leave(String plate, int hours) {
         checkInitialize();
         Objects.requireNonNull(plate, "plate is null");
@@ -76,6 +112,10 @@ public class ParkingLot {
         return new Receipt(slotNo, charge);
     }
 
+    /**
+     * @return unmodifiable map: occupied slot No -> car registration number
+     * @throws ParkingLotException when parking lot is not initialized
+     */
     public Map<Integer, String> status() {
         checkInitialize();
         return Collections.unmodifiableMap(slotNoToPlate);

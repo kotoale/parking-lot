@@ -1,12 +1,15 @@
 package kotoale.parking.lot.processors;
 
 import kotoale.parking.lot.config.ProcessorProperties;
-import kotoale.parking.lot.service.ParkingLot;
 import kotoale.parking.lot.model.Receipt;
+import kotoale.parking.lot.service.ParkingLot;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 
+/**
+ * Removes a car from parking lot.
+ */
 @Component
 public class LeaveProcessor extends AbstractProcessor<LeaveProcessor.Command> {
 

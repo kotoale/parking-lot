@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 
+/**
+ * Creates parking lot with given size.
+ */
 @Component
 public class CreateProcessor extends AbstractProcessor<CreateProcessor.Command> {
 

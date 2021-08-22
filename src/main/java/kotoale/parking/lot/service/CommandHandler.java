@@ -19,6 +19,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Handles stream of strings with parking lot commands.
+ */
 @SuppressWarnings("rawtypes")
 @Service
 public class CommandHandler {
@@ -34,12 +37,21 @@ public class CommandHandler {
                 .collect(Collectors.joining(")|(", "^(?:\\s*)((", "))(?:\\s*)$")));
     }
 
+    /**
+     * @return sorted list of registered {@link Processor} objects
+     */
     public List<Processor> getProcessors() {
         return commandNameToProcessor.values().stream()
                 .sorted(Comparator.comparing(Processor::getCommandName))
                 .collect(Collectors.toUnmodifiableList());
     }
 
+    /**
+     * Handles stream of strings with parking lot {@code commands} and writes output to the {@code writer}
+     *
+     * @param commands {@link Stream<String>} of commands to be processed
+     * @param writer   writer for writing output
+     */
     @SuppressWarnings("unchecked")
     public void handle(Stream<String> commands, PrintWriter writer) {
         commands.forEach(commandLine -> {

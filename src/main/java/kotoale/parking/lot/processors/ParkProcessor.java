@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.regex.Matcher;
 
+/**
+ * Parks a car to the parking lot.
+ */
 @Component
 public class ParkProcessor extends AbstractProcessor<ParkProcessor.Command> {
 
