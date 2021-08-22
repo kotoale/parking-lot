@@ -1,3 +1,11 @@
 spring:
   main:
     banner-mode: "off"
+
+app:
+  calculator:
+    fixed-price: 10
+    first-hours: 2
+    hourly-rate: 10
+  processor:
+    plate-regexp: "[a-zA-Z\\-\\d]+"

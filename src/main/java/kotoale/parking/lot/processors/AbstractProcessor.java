@@ -18,11 +18,7 @@ public abstract class AbstractProcessor<C> implements Processor<C> {
     }
 
     @Override
-    final public String getCommandRegexp() {
-        return String.format("(%s%s)", commandName, createProcessorArgsRegexp());
-    }
-
-    private String createProcessorArgsRegexp() {
-        return argsRegexp.isEmpty() ? "" : String.format("(?:\\s+)%s", argsRegexp);
+    final public String getArgsRegexp() {
+        return argsRegexp;
     }
 }

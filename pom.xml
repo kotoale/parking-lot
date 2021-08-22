@@ -6,14 +6,7 @@
 
     <groupId>kotoale.parking-lot</groupId>
     <artifactId>parking-lot</artifactId>
-    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
 
     <scm>
         <connection>scm:git:git@github.com:kotoale/parking-lot.git</connection>
@@ -29,7 +22,7 @@
         <junit-jupiter-engine.version>5.7.2</junit-jupiter-engine.version>
         <mockito.version>3.11.2</mockito.version>
         <assertj-core.version>3.20.2</assertj-core.version>
-        <spring-boot.version>2.5.4</spring-boot.version>
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -104,8 +97,12 @@
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
     </dependencies>
 
@@ -151,6 +148,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

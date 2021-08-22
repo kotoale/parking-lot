@@ -2,20 +2,20 @@ package kotoale.parking.lot.config;
 
 import kotoale.parking.lot.calculator.ChargeCalculator;
 import kotoale.parking.lot.calculator.FirstHoursFixedPriceChargeCalculator;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.PrintWriter;
-
 @Configuration
+@EnableConfigurationProperties({
+        CalculatorProperties.class,
+        ProcessorProperties.class
+})
 public class Config {
-    @Bean
-    public ChargeCalculator chargeCalculator() {
-        return new FirstHoursFixedPriceChargeCalculator(10, 2, 10);
-    }
 
     @Bean
-    public PrintWriter printWriter() {
-        return new PrintWriter(System.out);
+    public ChargeCalculator chargeCalculator(CalculatorProperties calculatorProperties) {
+        return new FirstHoursFixedPriceChargeCalculator(calculatorProperties.getFixedPrice(),
+                calculatorProperties.getFirstHours(), calculatorProperties.getHourlyRate());
     }
 }

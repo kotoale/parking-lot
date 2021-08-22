@@ -7,13 +7,11 @@ import java.util.regex.Matcher;
 
 @Component
 public class CreateProcessor extends AbstractProcessor<CreateProcessor.Command> {
-    private static final String COMMAND_NAME = "create";
-    private static final String ARGS_REGEXP = "(?<createSize>[1-9]\\d*)";
 
     private final ParkingLot parkingLot;
 
     public CreateProcessor(ParkingLot parkingLot) {
-        super(COMMAND_NAME, ARGS_REGEXP);
+        super("create", "(?<createSize>[1-9]\\d*)");
         this.parkingLot = parkingLot;
     }
 

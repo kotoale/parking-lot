@@ -1,5 +1,6 @@
 package kotoale.parking.lot.processors;
 
+import kotoale.parking.lot.config.ProcessorProperties;
 import kotoale.parking.lot.service.ParkingLot;
 import kotoale.parking.lot.model.Receipt;
 import org.springframework.stereotype.Component;
@@ -8,13 +9,11 @@ import java.util.regex.Matcher;
 
 @Component
 public class LeaveProcessor extends AbstractProcessor<LeaveProcessor.Command> {
-    private static final String COMMAND_NAME = "leave";
-    private static final String ARGS_REGEXP = "(?<leavePlate>[a-zA-Z\\-\\d]+)(?:\\s+)(?<leaveHours>[1-9]\\d*)";
 
     private final ParkingLot parkingLot;
 
-    public LeaveProcessor(ParkingLot parkingLot) {
-        super(COMMAND_NAME, ARGS_REGEXP);
+    public LeaveProcessor(ParkingLot parkingLot, ProcessorProperties props) {
+        super("leave", "(?<leavePlate>" + props.getPlateRegexp() + ")(?:\\s+)(?<leaveHours>[1-9]\\d*)");
         this.parkingLot = parkingLot;
     }
 

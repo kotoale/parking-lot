@@ -9,13 +9,11 @@ import java.util.stream.Collectors;
 
 @Component
 public class StatusProcessor extends AbstractProcessor<Void> {
-    private static final String COMMAND_NAME = "status";
-    private static final String ARGS_REGEXP = "";
 
     private final ParkingLot parkingLot;
 
     public StatusProcessor(ParkingLot parkingLot) {
-        super(COMMAND_NAME, ARGS_REGEXP);
+        super("status", "");
         this.parkingLot = parkingLot;
     }
 
