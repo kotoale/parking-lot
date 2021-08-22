@@ -21,10 +21,10 @@ public class FirstHoursFixedPriceChargeCalculator implements ChargeCalculator {
             throw new IllegalArgumentException("fixedPrice is not positive: " + fixedPrice);
         }
         if (firstHours <= 0) {
-            throw new IllegalArgumentException("fixedPrice is not positive: " + firstHours);
+            throw new IllegalArgumentException("firstHours is not positive: " + firstHours);
         }
         if (hourlyRate <= 0) {
-            throw new IllegalArgumentException("fixedPrice is not positive: " + hourlyRate);
+            throw new IllegalArgumentException("hourlyRate is not positive: " + hourlyRate);
         }
         this.fixedPrice = fixedPrice;
         this.firstHours = firstHours;

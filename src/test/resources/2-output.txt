@@ -1,0 +1,22 @@
+Created parking lot with 4 slots
+Allocated slot number: 1
+Allocated slot number: 2
+Incorrect command: par k KA-01-BB-0001
+Allocated slot number: 3
+Allocated slot number: 4
+Sorry, parking lot is full
+Incorrect command:  leave KA-01-HH-3141 -4
+Slot No. Registration No.
+1        KA-01-HH-1234
+2        KA-01-HH-9999
+3        KA-01-HH-7777
+4        KA-01-HH-2701
+Sorry, parking lot is full
+Incorrect command: park DL-12-AA-9#999
+Registration Number KA-01-HH-1234 from Slot 1 has left with Charge 30
+Incorrect command: leave KA-01- BB-0001 6
+Registration Number DL-12-AA-9999 not found
+Allocated slot number: 1
+Sorry, parking lot is full
+Sorry, parking lot is full
+Incorrect command: sta tus

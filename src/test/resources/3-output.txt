@@ -1,0 +1,22 @@
+Parking lot not created
+Parking lot not created
+Incorrect command: par k KA-01-BB-0001
+Parking lot not created
+Parking lot not created
+Parking lot not created
+Parking lot not created
+Parking lot not created
+Created parking lot with 4 slots
+Allocated slot number: 1
+Allocated slot number: 2
+Registration Number KA-01-HH-1234 not found
+Registration Number KA-01-BB-0001 not found
+Registration Number DL-12-AA-9999 from Slot 2 has left with Charge 10
+Allocated slot number: 2
+Allocated slot number: 3
+Allocated slot number: 4
+Slot No. Registration No.
+1        KA-01-P-333
+2        KA-09-HH-0987
+3        CA-09-IO-1111
+4        KA-09-HH-0123
