@@ -1,6 +1,9 @@
 package kotoale.parking.lot.service;
 
+import kotoale.parking.lot.exception.ParkingLotException;
 import kotoale.parking.lot.processors.Processor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
@@ -19,6 +22,8 @@ import java.util.stream.Stream;
 @SuppressWarnings("rawtypes")
 @Service
 public class CommandHandler {
+
+    private static final Logger log = LoggerFactory.getLogger(CommandHandler.class);
 
     private final Map<String, Processor> commandNameToProcessor;
     private final Pattern commandPattern;
@@ -41,6 +46,7 @@ public class CommandHandler {
             Matcher matcher = commandPattern.matcher(commandLine);
             if (!matcher.matches()) {
                 writer.println("Incorrect command: " + commandLine);
+                log.error("Incorrect command: '{}'", commandLine);
                 return;
             }
 
@@ -53,11 +59,14 @@ public class CommandHandler {
                 var command = processor.createCommand(matcher);
                 String commandOutput = processor.processCommand(command);
                 writer.println(commandOutput);
-            } catch (IllegalArgumentException | IllegalStateException exception) {
+                log.info("Successfully processed command: '{}'", commandLine);
+            } catch (ParkingLotException exception) {
                 writer.println(exception.getMessage());
+                log.error("Processed command with error; command: '{}', error: {}", commandLine, exception.getMessage());
             } catch (Exception exception) {
-                writer.println(String.format("Failed to process command: '%s', error: %s",
-                        commandLine, exception.getMessage()));
+                String message = String.format("Failed to process command: '%s', error: %s", commandLine, exception.getMessage());
+                writer.println(message);
+                log.error(message, exception);
             }
         });
     }

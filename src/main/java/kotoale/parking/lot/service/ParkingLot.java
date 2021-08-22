@@ -1,7 +1,8 @@
 package kotoale.parking.lot.service;
 
-import kotoale.parking.lot.model.Receipt;
 import kotoale.parking.lot.calculator.ChargeCalculator;
+import kotoale.parking.lot.exception.ParkingLotException;
+import kotoale.parking.lot.model.Receipt;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -34,7 +35,7 @@ public class ParkingLot {
             throw new IllegalArgumentException(String.format("size is not positive: %d", size));
         }
         if (initialized) {
-            throw new IllegalStateException("Parking lot already initialized");
+            throw new ParkingLotException("Parking lot already initialized");
         }
 
         vacantSlots.addAll(IntStream.rangeClosed(1, size).boxed().collect(Collectors.toList()));
@@ -45,12 +46,12 @@ public class ParkingLot {
         checkInitialize();
         Objects.requireNonNull(plate, "plate is null");
         if (plateToSlotNo.containsKey(plate)) {
-            throw new IllegalArgumentException(String.format("Vehicle with the plate already parked, plate: %s", plate));
+            throw new ParkingLotException(String.format("Vehicle with the plate already parked, plate: %s", plate));
         }
 
         Integer slotNo = vacantSlots.pollFirst();
         if (slotNo == null) {
-            throw new IllegalStateException("Sorry, parking lot is full");
+            throw new ParkingLotException("Sorry, parking lot is full");
         }
 
         slotNoToPlate.put(slotNo, plate);
@@ -66,7 +67,7 @@ public class ParkingLot {
         }
         Integer slotNo = plateToSlotNo.remove(plate);
         if (slotNo == null) {
-            throw new IllegalArgumentException(String.format("Registration Number %s not found", plate));
+            throw new ParkingLotException(String.format("Registration Number %s not found", plate));
         }
 
         slotNoToPlate.remove(slotNo);
@@ -82,7 +83,7 @@ public class ParkingLot {
 
     private void checkInitialize() {
         if (!initialized) {
-            throw new IllegalStateException("Parking lot not created");
+            throw new ParkingLotException("Parking lot not created");
         }
     }
 

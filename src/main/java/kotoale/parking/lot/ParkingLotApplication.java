@@ -2,6 +2,8 @@ package kotoale.parking.lot;
 
 import kotoale.parking.lot.processors.Processor;
 import kotoale.parking.lot.service.CommandHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,6 +16,8 @@ import java.util.List;
 @SpringBootApplication
 public class ParkingLotApplication {
 
+    private static final Logger log = LoggerFactory.getLogger(ParkingLotApplication.class);
+
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(ParkingLotApplication.class, args);
         CommandHandler handler = context.getBean(CommandHandler.class);
@@ -23,10 +27,12 @@ public class ParkingLotApplication {
             return;
         }
 
+        String file = args[0];
         try {
-            handler.handle(Files.lines(Paths.get(args[0])), new PrintWriter(System.out, true));
+            handler.handle(Files.lines(Paths.get(file)), new PrintWriter(System.out, true));
+            log.info("Successfully processed file: {}", file);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            log.error("Failed to process file: {}", file, exception);
             printUsage(handler.getProcessors());
             System.exit(1);
         }
